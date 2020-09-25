@@ -13,49 +13,28 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainPresenter(private val view: MainActivity) : Presenter {
     lateinit var items : List<Item>
 
-    override fun loadDB(context : Context) {
+    override fun loadDB(context : Context): List<Item> {
         val db : ItemDatabase = ItemDatabase.getInstance(context)
         items = db.itemDao().getAll()
-        view.layout_recyclerView.run{
-            adapter = ItemAdapter(context, items)
-            layoutManager = LinearLayoutManager(context)
-            setHasFixedSize(true)
+
+        return items
         }
-    }
 
-    override fun addDB(context : Context) {
+    override fun addDB(context: Context, newId : Int?, newMessage : String): List<Item> {
         val db : ItemDatabase = ItemDatabase.getInstance(context)
-        val newId : Int? = null
-        val newMessage : String = view.et_input.text.toString()
-
         val newItem = Item(newId, newMessage)
 
         db.itemDao().insert(newItem)
         items = db.itemDao().getAll()
-        view.layout_recyclerView.run {
-            adapter = ItemAdapter(context, items)
-            adapter?.notifyDataSetChanged()
-        }
+
+        return items
     }
 
-    override fun clearDB(context : Context) {
+    override fun clearDB(context: Context): List<Item> {
         val db : ItemDatabase = ItemDatabase.getInstance(context)
         db.itemDao().allDelete()
         items = db.itemDao().getAll()
 
-        val builder = MaterialAlertDialogBuilder(context, R.style.CustomMaterialDialog)
-        builder.run {
-            setTitle("삭제 메세지")
-            setMessage("전체 메세지를 삭제하겠습니까?")
-            setPositiveButton("확인") { dialog, width ->
-                view.layout_recyclerView.run{
-                    adapter = ItemAdapter(context, items)
-                    adapter?.notifyDataSetChanged()
-                }
-            }
-            setNegativeButton("취소") { dialog, width -> }
-            show()
-        }
+        return items
     }
-
 }
