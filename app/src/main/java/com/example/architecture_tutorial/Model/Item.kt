@@ -12,7 +12,7 @@ data class Item(
     var id : Int?,
 
     @ColumnInfo(name = "message")
-    var message : String
+    var message : String?
 ){
     constructor() : this(null, "")
 }

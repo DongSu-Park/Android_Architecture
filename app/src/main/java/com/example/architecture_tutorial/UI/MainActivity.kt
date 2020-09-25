@@ -18,7 +18,9 @@ class MainActivity : AppCompatActivity() {
 
         // Layout Setting
         layout_recyclerView.run {
-            adapter = ItemAdapter(context, presenter.loadDB(context))
+            val loadItem = presenter.loadDB(context)
+
+            adapter = ItemAdapter(context, loadItem)
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
         }
@@ -28,8 +30,9 @@ class MainActivity : AppCompatActivity() {
             layout_recyclerView.run {
                 val newId : Int? = null
                 val newMessage : String = et_input.text.toString()
+                val addItem = presenter.addDB(context, newId, newMessage)
 
-                adapter = ItemAdapter(context, presenter.addDB(context, newId, newMessage))
+                adapter = ItemAdapter(context, addItem)
                 adapter?.notifyDataSetChanged()
 
                 et_input.text = null
@@ -45,7 +48,9 @@ class MainActivity : AppCompatActivity() {
                 setMessage("전체 메세지를 삭제하겠습니까?")
                 setPositiveButton("확인") { dialog, width ->
                     layout_recyclerView.run{
-                        adapter = ItemAdapter(context, presenter.clearDB(context))
+                        val clearItem = presenter.clearDB(context)
+
+                        adapter = ItemAdapter(context, clearItem)
                         adapter?.notifyDataSetChanged()
                     }
                 }
