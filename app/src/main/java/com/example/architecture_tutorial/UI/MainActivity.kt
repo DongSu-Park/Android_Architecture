@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.architecture_tutorial.Presenter.MainPresenter
 import com.example.architecture_tutorial.R
-import com.example.architecture_tutorial.adapter.ItemAdapter
+import com.example.architecture_tutorial.adapter.View.ItemAdapter
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_main.*
 

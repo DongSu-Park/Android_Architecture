@@ -1,14 +1,9 @@
 package com.example.architecture_tutorial.Presenter
 
 import android.content.Context
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.architecture_tutorial.Model.Item
 import com.example.architecture_tutorial.Model.ItemDatabase
-import com.example.architecture_tutorial.R
 import com.example.architecture_tutorial.UI.MainActivity
-import com.example.architecture_tutorial.adapter.ItemAdapter
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainPresenter(private val view: MainActivity) : Presenter {
     lateinit var items : List<Item>
