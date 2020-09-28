@@ -4,31 +4,33 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.example.architecture_tutorial.Model.Item
-import com.example.architecture_tutorial.Model.ItemRepository
+import com.example.architecture_tutorial.Model.ItemDao
+import com.example.architecture_tutorial.Model.ItemDatabase
 
 
 class ItemViewModel(application: Application) : AndroidViewModel(application) {
-    private val repository = ItemRepository(application)
-    private val items = repository.getAll()
+    private val itemDatabase = ItemDatabase.getInstance(application)
+    private val itemDao: ItemDao = itemDatabase.itemDao()
+    private val items : LiveData<List<Item>> = itemDao.getAll()
 
     fun getAll(): LiveData<List<Item>>{
         return this.items
     }
 
     fun insert(item : Item){
-        repository.insert(item)
+        itemDao.insert(item)
     }
 
     fun update(item : Item){
-        repository.update(item)
+        itemDao.update(item)
     }
 
     fun delete(item : Item){
-        repository.delete(item)
+        itemDao.delete(item)
     }
 
     fun allDelete(){
-        repository.allDelete()
+        itemDao.allDelete()
     }
 
 

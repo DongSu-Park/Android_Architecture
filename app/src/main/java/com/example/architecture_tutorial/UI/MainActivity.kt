@@ -19,31 +19,36 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        itemViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory(application!!)).get(ItemViewModel::class.java)
+        itemViewModel =
+            ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory(application!!)).get(
+                ItemViewModel::class.java
+            )
 
+        // Layout Setting
         val itemAdapter = ItemAdapter(this, itemViewModel)
         val lm = LinearLayoutManager(this)
 
-        layout_recyclerView.run{
+        layout_recyclerView.run {
             adapter = itemAdapter
             layoutManager = lm
             setHasFixedSize(true)
         }
 
-
-
-        itemViewModel.getAll().observe(this, Observer<List<Item>>{ items ->
+        // LiveData Setting
+        itemViewModel.getAll().observe(this, Observer<List<Item>> { items ->
             itemAdapter.setItems(items)
         })
 
+        // Input Btn Click
         btn_input.setOnClickListener {
-            val id : Int? = null
-            val newMessage : String = et_input.text.toString()
+            val id: Int? = null
+            val newMessage: String = et_input.text.toString()
 
             val item = Item(id, newMessage)
             itemViewModel.insert(item)
         }
 
+        // Clear Btn Click
         btn_clear.setOnClickListener {
             val builder = MaterialAlertDialogBuilder(this, R.style.CustomMaterialDialog)
             builder.run {
