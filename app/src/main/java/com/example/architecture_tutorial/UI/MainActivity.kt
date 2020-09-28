@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.architecture_tutorial.Model.Item
 import com.example.architecture_tutorial.R
 import com.example.architecture_tutorial.ViewModel.ItemViewModel
 import com.example.architecture_tutorial.adapter.ItemAdapter
@@ -35,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // LiveData Setting
-        itemViewModel.getAll().observe(this, Observer<List<Item>> { items ->
+        itemViewModel.getAll().observe(this, Observer { items ->
             itemAdapter.setItems(items)
         })
 
@@ -43,9 +42,7 @@ class MainActivity : AppCompatActivity() {
         btn_input.setOnClickListener {
             val id: Int? = null
             val newMessage: String = et_input.text.toString()
-
-            val item = Item(id, newMessage)
-            itemViewModel.insert(item)
+            itemViewModel.insert(id, newMessage)
         }
 
         // Clear Btn Click

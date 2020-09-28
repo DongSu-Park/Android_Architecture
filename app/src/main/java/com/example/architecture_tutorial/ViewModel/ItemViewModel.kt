@@ -17,7 +17,8 @@ class ItemViewModel(application: Application) : AndroidViewModel(application) {
         return this.items
     }
 
-    fun insert(item : Item){
+    fun insert(id : Int?, message : String){
+        val item = Item(id, message)
         itemDao.insert(item)
     }
 
