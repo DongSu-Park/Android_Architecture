@@ -25,11 +25,10 @@ class MainActivity : AppCompatActivity() {
 
         // Layout Setting
         val itemAdapter = ItemAdapter(this, itemViewModel)
-        val lm = LinearLayoutManager(this)
 
         layout_recyclerView.run {
             adapter = itemAdapter
-            layoutManager = lm
+            layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
         }
 
