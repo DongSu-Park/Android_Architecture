@@ -12,7 +12,7 @@ import com.example.architecture_tutorial.R
 import com.example.architecture_tutorial.ViewModel.ItemViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class ItemAdapter(private val context: Context, viewModel: ItemViewModel) : RecyclerView.Adapter<ItemAdapter.ViewHolder>(){
+class ItemAdapter(val context: Context, viewModel: ItemViewModel) : RecyclerView.Adapter<ItemAdapter.ViewHolder>(){
     private var items: List<Item> = listOf()
     private var itemViewModel = viewModel
 
