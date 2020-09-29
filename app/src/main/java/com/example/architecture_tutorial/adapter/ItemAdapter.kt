@@ -7,54 +7,27 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.architecture_tutorial.Model.Item
+import com.example.architecture_tutorial.model.Item
 import com.example.architecture_tutorial.R
-import com.example.architecture_tutorial.ViewModel.ItemViewModel
+import com.example.architecture_tutorial.databinding.ItemListBinding
+import com.example.architecture_tutorial.viewModel.ItemViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class ItemAdapter(val context: Context, viewModel: ItemViewModel) : RecyclerView.Adapter<ItemAdapter.ViewHolder>(){
+class ItemAdapter(val context: Context, viewModel: ItemViewModel) : RecyclerView.Adapter<ViewHolder>(){
     private var items: List<Item> = listOf()
     private var itemViewModel = viewModel
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemAdapter.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
-        return ViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding : ItemListBinding = ItemListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding, context)
     }
 
-    override fun onBindViewHolder(holder: ItemAdapter.ViewHolder, position: Int) {
-        holder.bind(items[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(items[position].id, items[position].message, itemViewModel)
     }
 
     override fun getItemCount(): Int {
         return items.size
-    }
-
-    inner class ViewHolder(itemView : View): RecyclerView.ViewHolder(itemView){
-        private var btn_text_message = itemView.findViewById<Button>(R.id.btn_text)
-
-        fun bind(item: Item) {
-            btn_text_message.text = "Input Text (${item.id}) : ${item.message}"
-
-            btn_text_message.setOnClickListener {
-                deleteDialog(item.id, item.message)
-            }
-        }
-    }
-
-    private fun deleteDialog(id: Int?, message: String) {
-        val builder = MaterialAlertDialogBuilder(context, R.style.CustomMaterialDialog)
-
-        builder.run {
-            setTitle("삭제 메세지")
-            setMessage("해당 메세지를 삭제하겠습니까? (Item id = ${id})")
-            setPositiveButton("확인") { dialog, width ->
-                itemViewModel.delete(Item(id, message))
-                Toast.makeText(context, "삭제가 완료되었습니다", Toast.LENGTH_LONG).show()
-            }
-            setNegativeButton("취소") { dialog, width ->
-            }
-            show()
-        }
     }
 
     fun setItems(items: List<Item>){

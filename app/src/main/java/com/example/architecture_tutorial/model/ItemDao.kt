@@ -1,7 +1,6 @@
-package com.example.architecture_tutorial.Model
+package com.example.architecture_tutorial.model
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 
 @Dao
