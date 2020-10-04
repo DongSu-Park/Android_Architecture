@@ -16,29 +16,31 @@ class ViewHolder(binding: ItemListBinding, context: Context): RecyclerView.ViewH
 
     private var selectId : Int? = null
     private var selectMessage : String? = null
-    var buttonTextMessage : String = ""
+    var buttonTextMessage : String? = null
 
-    fun bind(targetId : Int? , targetMessage : String, viewModel: ItemViewModel) {
-        holderViewModel = viewModel
-
+    fun bind(targetId : Int?, targetMessage : String, viewModel: ItemViewModel) {
         binding.run{
             itemViewList = this@ViewHolder
             itemViewModel = viewModel
         }
 
-        buttonTextMessage = "Input Text (${targetId}) : $targetMessage"
+        holderViewModel = viewModel
+
+        buttonTextMessage = "Input Text ($targetId) : $targetMessage"
         selectId = targetId
         selectMessage = targetMessage
+
     }
 
-    fun deleteDialog() {
+    fun selectItemDelete() {
         val builder = MaterialAlertDialogBuilder(dialogContext, R.style.CustomMaterialDialog)
+        val selectItem = Item(selectId, selectMessage!!)
 
         builder.run {
             setTitle("삭제 메세지")
             setMessage("해당 메세지를 삭제하겠습니까? (Item id = ${selectId})")
             setPositiveButton("확인") { dialog, width ->
-                holderViewModel.delete(Item(selectId, selectMessage!!))
+                holderViewModel.delete(selectItem)
                 Toast.makeText(context, "삭제가 완료되었습니다", Toast.LENGTH_LONG).show()
             }
             setNegativeButton("취소") { dialog, width ->

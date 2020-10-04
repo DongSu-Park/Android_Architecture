@@ -1,6 +1,8 @@
 package com.example.architecture_tutorial.ui
 
 import android.app.AlertDialog
+import android.app.Application
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -13,6 +15,9 @@ import com.example.architecture_tutorial.adapter.ItemAdapter
 import com.example.architecture_tutorial.databinding.ActivityMainBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     val viewModel: ItemViewModel by viewModels()
@@ -35,8 +40,8 @@ class MainActivity : AppCompatActivity() {
             setHasFixedSize(true)
         }
 
-        // LiveData Setting
-        viewModel.getAll().observe(this, Observer { items ->
+        // LiveData Setting (비동기 적용)
+        viewModel.getAll().observe(this@MainActivity, Observer { items ->
             itemAdapter.setItems(items)
         })
 

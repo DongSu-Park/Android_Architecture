@@ -15,7 +15,7 @@ abstract class ItemDatabase : RoomDatabase(){
         fun getInstance(context : Context) : ItemDatabase{
             if (instance == null){
                 instance = Room.databaseBuilder(context.applicationContext,
-                    ItemDatabase::class.java, "itemDb.db").allowMainThreadQueries().build()
+                    ItemDatabase::class.java, "itemDb.db").build()
             }
 
             return instance!!

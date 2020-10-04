@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@={itemViewList.buttonTextMessage}"
-            android:onClick="@{() -> itemViewList.deleteDialog()}"/>
+            android:onClick="@{() -> itemViewList.selectItemDelete()}"/>
 
     </androidx.cardview.widget.CardView>
 
